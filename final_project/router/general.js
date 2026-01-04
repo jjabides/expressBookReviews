@@ -10,8 +10,18 @@ public_users.post("/register", (req,res) => {
   const username = req.body.username
   const password = req.body.password
 
+  if (username && password) {
+    let existingUsers = users.filter(user => user.username === username)
 
-  return res.status(300).json({message: "Yet to be implemented"});
+    if (existingUsers.length > 0) {
+        return res.status(404).json({ message: "User already exists" })
+    } else {
+        users.push({ username, password })
+        return res.send("User successfully added")
+    }
+  } else {
+    return res.status(404).json({ message: "Credentials not provided" })
+  }
 });
 
 // Get the book list available in the shop
