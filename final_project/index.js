@@ -19,11 +19,11 @@ app.use("/customer/auth/*", function auth(req, res, next) {
                 res.user = payload
                 next()
             } else {
-                res.status(403).json({ message: "User not authenticated" })
+                return res.status(403).json({ message: "User not authenticated" })
             }
         })
     } else {
-        res.status(403).json({ message: "User not logged in"})
+        return res.status(403).json({ message: "User not logged in"})
     }
 });
 
