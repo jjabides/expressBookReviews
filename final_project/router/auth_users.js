@@ -48,10 +48,18 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
         const username = req.session.authentication.username
         // If same user posts different review on same isbn, update it
         books[isbn].reviews[username] = req.query.review
+        return res.send("Review successfully added")
     } else {
-        res.status(401).json({ message: "User not authenticated "})
+        return res.status(401).json({ message: "User not authenticated "})
     }
 });
+
+public_users.delete("/auth/review/:isbn", (req, res) => {
+    const isbn = req.params.isbn
+    const username = req.session.authentication.username
+    delete books[isnb].reviews[username]
+    return res.send("Review successfully deleted")
+})
 
 module.exports.authenticated = regd_users;
 module.exports.isValid = isValid;
