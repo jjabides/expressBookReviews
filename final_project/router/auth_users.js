@@ -54,10 +54,10 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
     }
 });
 
-public_users.delete("/auth/review/:isbn", (req, res) => {
+regd_users.delete("/auth/review/:isbn", (req, res) => {
     const isbn = req.params.isbn
     const username = req.session.authentication.username
-    delete books[isnb].reviews[username]
+    delete books[isbn].reviews[username]
     return res.send("Review successfully deleted")
 })
 
