@@ -30,7 +30,7 @@ regd_users.post("/login", (req, res) => {
             data: password
         }, "access", { expiresIn: 60 * 60 })
 
-        req.session.authentication = {
+        req.session.authorization = {
             accessToken,
             username
         }
@@ -44,8 +44,8 @@ regd_users.post("/login", (req, res) => {
 regd_users.put("/auth/review/:isbn", (req, res) => {
     //Write your code here
     const isbn = req.params.isbn
-    if (req.session.authentication) {
-        const username = req.session.authentication.username
+    if (req.session.authorization) {
+        const username = req.session.authorization.username
         // If same user posts different review on same isbn, update it
         books[isbn].reviews[username] = req.query.review
         return res.send("Review successfully added")
@@ -56,7 +56,7 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
 
 regd_users.delete("/auth/review/:isbn", (req, res) => {
     const isbn = req.params.isbn
-    const username = req.session.authentication.username
+    const username = req.session.authorization.username
     delete books[isbn].reviews[username]
     return res.send("Review successfully deleted")
 })
